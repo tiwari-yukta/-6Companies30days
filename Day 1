@@ -1,0 +1,32 @@
+1248. Count Number of Nice Subarrays
+My Code->
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        for (auto& it : nums) {
+            if (it % 2 == 0) {
+                it = 0;
+            } else {
+                it = 1;
+            }
+        }
+        unordered_map<int, int> mp;
+        mp[0] = 1;
+
+        int cumSum = 0;
+        int ans = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            cumSum += nums[i];
+            int targ = cumSum - k;
+            if (mp.find(targ) != mp.end()) {
+                ans += mp[targ];
+            }
+            mp[cumSum]++;
+        }
+        return ans;
+    }
+};
+
+
+Try solving these question for better understanding :
+Leetcode 560 and Leetcode 930
