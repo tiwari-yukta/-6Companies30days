@@ -1,5 +1,6 @@
 1248. Count Number of Nice Subarrays
 My Code->
+
 class Solution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
@@ -24,6 +25,49 @@ public:
             mp[cumSum]++;
         }
         return ans;
+    }
+};
+
+__________________________________________________________________________________________________________________________________________________________________________
+ Method 2-> using Sliding Window
+    class Solution {
+public:
+    int sw(vector<int>& nums, int k){
+        int i=0;
+        int j=0;
+        int n=nums.size();
+        int count_zeros=0;
+        int winSum=0;
+        int ans=0;
+        while(j<n){
+            winSum+=nums[j];
+           while((winSum>k || nums[i]==0) &&i<n ){
+            if(nums[i]==0){
+                count_zeros++;
+            }else{
+                count_zeros=0;
+            }
+            winSum-=nums[i];
+            i++;
+           }
+            if(winSum==k){
+            ans+=1+count_zeros;
+            }
+            j++;
+        }
+        return ans;
+    }
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        
+        for (auto& it : nums) {
+            if (it % 2 == 0) {
+                it = 0;
+            } else {
+                it = 1;
+            }
+        }
+        return sw(nums,k);
+      
     }
 };
 
