@@ -1,0 +1,48 @@
+354. Russian Doll Envelopes
+My code->
+class Solution {
+public:
+//    int lsi(int curr, int prev, vector<int>&sec, vector<vector<int>>&dp){
+//       int n=sec.size();
+//       if(curr>=n) return 0;
+//        if(dp[curr][prev+1]!=-1) return dp[curr][prev+1];
+//       int take=0;
+//       int skip=0;
+
+//       if(prev==-1 || sec[prev]<sec[curr]){
+//         take=1+lsi(curr+1,curr,sec,dp);
+//       }
+//       skip=lsi(curr+1,prev,sec,dp);
+      
+//       return dp[curr][prev+1]= max(skip,take);
+//    }  
+
+    int maxEnvelopes(vector<vector<int>>& nums) {
+         sort(nums.begin(), nums.end(), [](vector<int>& a, vector<int>& b) {
+        if (a[0] == b[0]) {
+            return a[1] > b[1]; 
+        }
+        return a[0] < b[0];
+    });
+       // vector<vector<int>>dp(nums.size(),vector<int>(nums.size()+1,-1));
+       vector<int>temp;
+
+        // int ans=0;
+         int n=nums.size();
+        // vector<int>sec;
+
+        // for(int i=0;i<n;i++){
+        //     sec.push_back(nums[i][1]);
+        // }
+        // return lsi(0,-1,sec,dp);
+        int i,j;
+        for(i=0; i<n; i++){
+            auto it = lower_bound(temp.begin(), temp.end(), nums[i][1]);
+            if(it==temp.end()){temp.push_back(nums[i][1]);}
+            else{
+                *it = nums[i][1];
+            }
+        }
+        return temp.size();
+    }
+};
