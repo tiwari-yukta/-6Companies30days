@@ -1,0 +1,29 @@
+299. Bulls and Cows
+
+My Code->
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        unordered_map<int,int>mp;
+        int countCows=0;
+        int countBulls=0;
+        for (int i = 0; i < secret.size(); i++) {
+        if (secret[i] == guess[i]) {
+            countBulls++; 
+        } else {
+            mp[secret[i] - '0']++;  
+        }
+    }
+
+    for (int i = 0; i < guess.size(); i++) {
+        if (secret[i] != guess[i]) {
+            int val = guess[i] - '0';
+            if (mp.find(val) != mp.end() && mp[val] > 0) {
+                countCows++;  
+                mp[val]--; 
+            }
+        }
+    }
+    return to_string(countBulls) + 'A' + to_string(countCows) + 'B';
+    }
+};
