@@ -1,0 +1,34 @@
+661. Image Smoother
+My Code->
+class Solution {
+public:
+    vector<vector<int>>directions={
+
+        {0,0},{0,1},{0,-1},{1,0},{-1,0},{1,1},{-1,1},{1,-1},{-1,-1}
+    };
+    vector<vector<int>> imageSmoother(vector<vector<int>>& img) {
+      int r=img.size();
+      int c=img[0].size(); 
+
+      vector<vector<int>>ans(r,vector<int>(c,0));
+
+      for(int i=0;i<r;i++){
+        for(int j=0;j<c;j++){
+            int sum=0;
+            int count=0;
+
+            for(auto it: directions){
+                int new_x=i+it[0];
+                int new_y=j+it[1];
+
+                if(new_x>=0 && new_x<r && new_y>=0 && new_y<c){
+                    sum+=img[new_x][new_y];
+                    count++;
+                }
+            }
+            ans[i][j]=sum/count;
+        }
+      } 
+      return ans;
+    }
+};
