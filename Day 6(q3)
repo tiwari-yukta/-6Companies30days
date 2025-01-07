@@ -1,0 +1,15 @@
+Nuts and Bolts Problem
+
+My Code->
+class Solution {
+  public:
+
+    void matchPairs(int n, char nuts[], char bolts[]) {
+        // code here
+       sort(nuts, nuts+n);
+       for(int i=0;i<n;i++)
+        {
+            bolts[i]=nuts[i];
+        }
+    }
+};
